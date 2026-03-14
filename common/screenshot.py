@@ -7,6 +7,12 @@ import os
 import sys
 from PIL import Image
 from io import StringIO
+# 获取当前脚本的绝对路径
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# 组合成完整路径
+file_path = os.path.join(current_dir, "serial.txt")
+f = open(file_path, "r", encoding="utf-8")
+serial = f.readline()
 
 try:
     from common.auto_adb import auto_adb
@@ -28,7 +34,7 @@ def pull_screenshot():
     global SCREENSHOT_WAY
     if 1 <= SCREENSHOT_WAY <= 3:
         process = subprocess.Popen(
-            adb.adb_path + ' shell screencap -p',
+            adb.adb_path + ' -s '+serial+' shell screencap -p',
             shell=True, stdout=subprocess.PIPE)
         binary_screenshot = process.stdout.read()
         if SCREENSHOT_WAY == 2:
@@ -37,8 +43,8 @@ def pull_screenshot():
             binary_screenshot = binary_screenshot.replace(b'\r\r\n', b'\n')
         return Image.open(StringIO(binary_screenshot))
     elif SCREENSHOT_WAY == 0:
-        adb.run('shell screencap -p /sdcard/autojump.png')
-        adb.run('pull /sdcard/autojump.png .')
+        adb.run('-s '+serial+' shell screencap -p /sdcard/Pictures/autojump.png')
+        adb.run('-s '+serial+' pull /sdcard/Pictures/autojump.png .')
         return Image.open('./autojump.png')
 
 

@@ -3,9 +3,23 @@ from __future__ import print_function, division
 import os
 import time
 import datetime
+from pathlib import Path
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import cv2
+# 获取当前脚本所在目录下的 serial.txt 路径
+current_dir = Path(__file__).parent
+serial_file = current_dir / "serial.txt"
+
+# 读取序列号
+try:
+    with open(serial_file, "r", encoding="utf-8") as f:
+        DEVICE_SERIAL = f.read().strip()
+    if not DEVICE_SERIAL:
+        raise ValueError("serial.txt 是空的")
+except FileNotFoundError:
+    print(f"错误：在 {current_dir} 没找到 serial.txt")
+    DEVICE_SERIAL = "" # 或者设置一个默认值
 
 VERSION = "1.1.4"
 scale = 0.25
@@ -31,14 +45,17 @@ def search(img):
 def pull_screenshot():
     filename = datetime.datetime.now().strftime("%H%M%S") + '.png'
     os.system('mv autojump.png {}'.format(filename))
-    os.system('adb shell screencap -p /sdcard/autojump.png')
-    os.system('adb pull /sdcard/autojump.png ./autojump.png')
+    #os.system('adb -s 252912bb shell screencap -p /sdcard/Pictures/autojump.png')
+    #os.system('adb -s 252912bb pull /sdcard/Pictures/autojump.png ./autojump.png')
+    os.system(f'adb -s {DEVICE_SERIAL} shell screencap -p /sdcard/Pictures/autojump.png')
+    os.system(f'adb -s {DEVICE_SERIAL} pull /sdcard/Pictures/autojump.png ./autojump.png')
 
 
 def jump(distance):
     press_time = distance * 1.35
     press_time = int(press_time)
-    cmd = 'adb shell input swipe 320 410 320 410 ' + str(press_time)
+    #cmd = 'adb -s 252912bb shell input swipe 320 410 320 410 ' + str(press_time) #不要硬编码
+    cmd = f'adb -s {DEVICE_SERIAL} shell input swipe 320 410 320 410 {press_time}'
     print(cmd)
     os.system(cmd)
 

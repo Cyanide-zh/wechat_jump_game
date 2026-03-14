@@ -8,14 +8,14 @@ from PIL import Image
 
 VERSION = "1.1.4"
 def pull_screenshot():
-    os.system('adb shell screencap -p /sdcard/autojump.png')
+    os.system('adb -s 252912bb shell screencap -p /sdcard/autojump.png')
     os.system('adb pull /sdcard/autojump.png .')
 
 
 def jump(distance):
     press_time = distance * 1.35
     press_time = int(press_time)
-    cmd = 'adb shell input swipe 320 410 320 410 ' + str(press_time)
+    cmd = 'adb -s 252912bb shell input swipe 320 410 320 410 ' + str(press_time)
     print(cmd)
     os.system(cmd)
 

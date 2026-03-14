@@ -4,6 +4,15 @@ import subprocess
 import platform
 
 
+# 获取当前脚本的绝对路径
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# 组合成完整路径
+file_path = os.path.join(current_dir, "serial.txt")
+f = open(file_path, "r", encoding="utf-8")
+# ... 使用完记得 f.close() 或使用 with 语句
+serial = f.readline()
+
+
 class auto_adb():
     def __init__(self):
         try:
@@ -31,7 +40,7 @@ class auto_adb():
             exit(1)
 
     def get_screen(self):
-        process = os.popen(self.adb_path + ' shell wm size')
+        process = os.popen(self.adb_path + ' -s '+serial+' shell wm size')
         output = process.read()
         return output
 
@@ -43,7 +52,7 @@ class auto_adb():
 
     def test_device(self):
         print('检查设备是否连接...')
-        command_list = [self.adb_path, 'devices']
+        command_list = [self.adb_path, 'devices', '-l']
         process = subprocess.Popen(command_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output = process.communicate()
         if output[0].decode('utf8') == 'List of devices attached\n\n':
@@ -58,17 +67,17 @@ class auto_adb():
             print(each.decode('utf8'))
 
     def test_density(self):
-        process = os.popen(self.adb_path + ' shell wm density')
+        process = os.popen(self.adb_path + ' -s '+serial+' shell wm density')
         output = process.read()
         return output
 
     def test_device_detail(self):
-        process = os.popen(self.adb_path + ' shell getprop ro.product.device')
+        process = os.popen(self.adb_path + ' -s '+serial+' shell getprop ro.product.device')
         output = process.read()
         return output
 
     def test_device_os(self):
-        process = os.popen(self.adb_path + ' shell getprop ro.build.version.release')
+        process = os.popen(self.adb_path + ' -s '+serial+' shell getprop ro.build.version.release')
         output = process.read()
         return output
 

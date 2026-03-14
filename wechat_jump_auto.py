@@ -17,12 +17,19 @@
 """
 
 import math
+import os
 import re
 import random
 import sys
 import time
 from PIL import Image
 from six.moves import input
+#获取当前脚本的绝对路径
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# 组合成完整路径
+file_path = os.path.join(current_dir, "common", "serial.txt")
+f = open(file_path, "r", encoding="utf-8")
+serial = f.readline()
 
 if sys.version_info.major != 3:
     print('请使用Python3')
@@ -88,7 +95,7 @@ def jump(distance, delta_piece_y):
     press_time = max(press_time, 200)  # 设置 200ms 是最小的按压时间
     press_time = int(press_time)
 
-    cmd = 'shell input swipe {x1} {y1} {x2} {y2} {duration}'.format(
+    cmd = '-s '+serial+' shell input swipe {x1} {y1} {x2} {y2} {duration}'.format(
         x1=swipe_x1,
         y1=swipe_y1,
         x2=swipe_x2,
@@ -256,6 +263,6 @@ if __name__ == '__main__':
         yes_or_no()
         main()
     except KeyboardInterrupt:
-        adb.run('kill-server')
+        adb.run('-s op.IN2020.com:5555 shell rm /sdcard/Pictures/autojump.png')
         print('\n谢谢使用', end='')
         exit(0)

@@ -1,0 +1,6 @@
+.\wechat_jump_auto.py
+.\common\auto_adb.py
+.\common\screenshot.py
+以上文件中的序列号不是硬编码,在common\serial.txt
+项目根目录config.json中的按压系数在为1080x2400时为0.97
+项目地址https://github.com/wangshub/wechat_jump_game

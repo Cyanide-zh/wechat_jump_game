@@ -39,7 +39,7 @@ def pull_screenshot():  # 获取截图
     global screenshot_way
     if screenshot_way in [1, 2]:
         process = subprocess.Popen(
-            'adb shell screencap -p', shell=True, stdout=subprocess.PIPE)
+            'adb -s 252912bb shell screencap -p', shell=True, stdout=subprocess.PIPE)
         screenshot = process.stdout.read()
         if screenshot_way == 2:
             binary_screenshot = screenshot.replace(b'\r\n', b'\n')
@@ -47,8 +47,8 @@ def pull_screenshot():  # 获取截图
             binary_screenshot = screenshot.replace(b'\r\r\n', b'\n')
         return binary_screenshot
     elif screenshot_way == 0:
-        os.system('adb shell screencap -p /sdcard/autojump.png')
-        os.system('adb pull /sdcard/autojump.png .')
+        os.system('adb -s 252912bb shell screencap -p /sdcard/autojump.png')
+        os.system('adb -s 252912bb pull /sdcard/autojump.png .')
 
 # ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
 
@@ -164,7 +164,7 @@ def jump(piece_x, board_x, im, swipe_x1, swipe_y1):
     print('%-12s %.2f%% (%s/%s) | Press: %sms' %
           ('Distance:', jumpPercent * 100, distanceX, shortEdge, press_time))
 
-    cmd = 'adb shell input swipe {x1} {y1} {x2} {y2} {duration}'.format(
+    cmd = 'adb -s 252912bb shell input swipe {x1} {y1} {x2} {y2} {duration}'.format(
         x1=swipe_x1,
         y1=swipe_y1,
         x2=swipe_x1 + random.randint(-10, 10),  # 模拟位移

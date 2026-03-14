@@ -1,0 +1,8 @@
+Set fso = CreateObject("scripting.filesystemobject")
+path="F:\手机科技\跳1跳\源代码wechat_jump_game\wechat_jump_auto.py"
+Set A=fso.OpenTextFile(path,1)
+For i=1 To 90
+A.ReadLine
+Next
+line=A.ReadLine
+MsgBox "第三行为：  "&line
