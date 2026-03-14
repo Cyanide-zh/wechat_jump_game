@@ -6,6 +6,7 @@ autojump.png
 autojump_temp.png
 region*.png
 jump_range.csv
+serial.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
