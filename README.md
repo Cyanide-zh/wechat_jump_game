@@ -13,14 +13,14 @@
 
 ## 原理说明
 
-##### 由于微信检测非常严厉，这里的防禁代码可能已经不起作用，主要供学习用途
+##### 由于微信检测非常严厉，这里的防禁代码可能已经不起作用，主要供学习用途。启动跳1跳以后建议断开手机的网络再测试
 
 1. 将手机点击到《跳一跳》小程序界面
 
-2. 用 ADB 工具获取当前手机截图，并用 ADB 将截图 pull 上来
+2. 用 ADB 工具获取当前手机截图，并用 ADB 将截图 pull 上来。*修改为将截屏临时文件放在安卓标准文件夹Pictures,以符合安卓规范。
 ```shell
-adb shell screencap -p /sdcard/autojump.png
-adb pull /sdcard/autojump.png .
+adb shell screencap -p /sdcard/Pictures/autojump.png
+adb pull /sdcard/Pictures/autojump.png .
 ```
 
 3. 计算按压时间
@@ -38,6 +38,7 @@ adb shell input swipe x y x y time(ms)
 
 相关软件工具安装和使用步骤请参考 [Android 和 iOS 操作步骤](https://github.com/wangshub/wechat_jump_game/wiki/Android-%E5%92%8C-iOS-%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4)
 
+*现已支持在连接多个adb设备时选择其中1个,adb devices -l查看安卓调试桥设备的序列号以后将序列号填写在common\serial.txt文件中即可。
 #### 获取源码
 
 ```
@@ -67,7 +68,7 @@ adb shell input swipe x y x y time(ms)
 
 - 详见 [contributors](https://github.com/wangshub/wechat_jump_game/graphs/contributors)
 
-## 交流
+## 交流(原作者)
 
 - 314659953 (1000 人)
 - 176740763 (500 人)
