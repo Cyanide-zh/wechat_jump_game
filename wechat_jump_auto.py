@@ -263,6 +263,6 @@ if __name__ == '__main__':
         yes_or_no()
         main()
     except KeyboardInterrupt:
-        adb.run('-s op.IN2020.com:5555 shell rm /sdcard/Pictures/autojump.png')
+        adb.run('-s serial shell rm /sdcard/Pictures/autojump.png')
         print('\n谢谢使用', end='')
         exit(0)
