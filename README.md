@@ -38,7 +38,8 @@ adb shell input swipe x y x y time(ms)
 
 相关软件工具安装和使用步骤请参考 [Android 和 iOS 操作步骤](https://github.com/wangshub/wechat_jump_game/wiki/Android-%E5%92%8C-iOS-%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4)
 
-*现已支持在连接多个adb设备时选择其中1个,adb devices -l查看安卓调试桥设备的序列号以后将序列号填写在common\serial.txt文件中即可。
+*现已支持在连接多个adb设备时选择其中1个,adb devices -l查看安卓调试桥设备的序列号以后,将序列号填写在项目根目录common\文件夹里的serial.txt文件中(不要有空行)即可。
+*然后前往项目根目录执行python .\wechat_jump_auto.py即可。
 #### 获取源码
 
 ```
@@ -72,7 +73,7 @@ adb shell input swipe x y x y time(ms)
 
 - 314659953 (1000 人)
 - 176740763 (500 人)
-
+- *分支作者:请使用QQ喵请使用QQ谢谢喵°
 - 或者关注我的微信公众号后台留言
 
 ![](./resource/image/qrcode_for_gh_3586401957c4_258.jpg)
